@@ -1,4 +1,3 @@
-
 import { useGLTF, useTexture } from '@react-three/drei';
 
 const HackerRoom = (props) => {
