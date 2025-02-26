@@ -8,7 +8,7 @@ import { Leva, useControls } from 'leva';
 import { useMediaQuery } from 'react-responsive';
 
 const Hero = () => {
-  const x = useControls('Hacker Room', {
+  const controls = useControls('Hacker Room', {
     positionX: {
       value: 2.5,
       min: -10,
@@ -47,7 +47,12 @@ const Hero = () => {
       max: 10,
     },
   });
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+  const isSmall = useMediaQuery({maxWidth: 440});
+  const isMobile = useMediaQuery({maxWidth: 768});
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+
+  const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
 
   return (
@@ -65,9 +70,9 @@ const Hero = () => {
             <PerspectiveCamera makeDefault position={[0, 0, 30]} />
 
             <HackerRoom
-              position={[x.positionX, x.positionY, x.positionZ]}
-              rotation={[x.rotationX, x.rotationY, x.rotationZ]}
-              scale={[x.scale, x.scale, x.scale]}
+              position={sizes.deskPosition}
+              rotation={[0, -Math.PI, 0]}
+              scale={sizes.deskScale}
             />
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 10]} intensity={0.5} />
